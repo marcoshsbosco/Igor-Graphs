@@ -4,10 +4,9 @@ class Graph:
         self.directed = directed
 
     def add_edge(self, u, v):
-        if self.directed:
-            self.vertices[u].adj.append(self.vertices[v])
-        else:
-            self.vertices[u].adj.append(self.vertices[v])
+        self.vertices[u].adj.append(self.vertices[v])
+
+        if not self.directed:
             self.vertices[v].adj.append(self.vertices[u])
 
     def __str__(self):
