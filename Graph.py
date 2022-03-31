@@ -57,6 +57,35 @@ class Graph:
 
             u.color = "black"
 
+    def dfs(self):
+        for u in self.vertices:
+            u.color = "white"
+            u.predecessor = None
+
+        self.time = 0
+
+        for u in self.vertices:
+            if u.color == "white":
+                self.dfs_visit(u)
+
+    def dfs_visit(self, u):
+        self.time += 1
+
+        print(f"Visiting {str(u)} at t={self.time}...")
+        print(f"predecessor: {u.predecessor}\n")
+
+        u.d = self.time
+        u.color = "gray"
+
+        for v in u.adj:
+            if v.color == "white":
+                v.predecessor = u
+                self.dfs_visit(v)
+
+        u.color = "black"
+        self.time += 1
+        u.f = self.time
+        print(f"Finished {str(u)} at t={self.time}\n")
 
 
 class Vertex:

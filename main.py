@@ -13,3 +13,6 @@ print(g)
 
 print("----- BFS on g -----")
 g.bfs(s=0)
+
+print("\n----- DFS on g -----")
+g.dfs()
