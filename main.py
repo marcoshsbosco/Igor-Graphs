@@ -8,4 +8,8 @@ g.add_edge(1, 4)
 g.add_edge(2, 5)
 g.add_edge(2, 6)
 
+print("----- Graph g -----")
 print(g)
+
+print("----- BFS on g -----")
+g.bfs(s=0)
