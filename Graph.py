@@ -1,22 +1,32 @@
 class Graph:
-    def __init__(self, vertices: int, directed: bool):
+    def __init__(self, vertices: int, directed: bool, weighted: bool):
         self.vertices = [Vertex(u) for u in range(vertices)]
         self.directed = directed
+        self.weighted = weighted
 
-    def add_edge(self, u, v):
+    def add_edge(self, u, v, w=None):
         self.vertices[u].adj.append(self.vertices[v])
 
         if not self.directed:
             self.vertices[v].adj.append(self.vertices[u])
 
+        if self.weighted:
+            self.vertices[u].weights.append(w)
+
+            if not self.directed:
+                self.vertices[v].weights.append(w)
+
     def __str__(self):
         s = ""
 
         for u in self.vertices:
-            s += f"{str(u)}: ["
+            s += f"{u}: ["
 
-            for v in u.adj:
-                s += f" {str(v)} "
+            for i, v in enumerate(u.adj):
+                if not self.weighted:
+                    s += f" {v} "
+                else:
+                    s += f" {v}(w={u.weights[i]}) "
 
             s += "]\n"
 
@@ -31,7 +41,7 @@ class Graph:
             u.d = float("inf")
             u.predecessor = None
 
-        print(f"Visiting source {str(s)}")
+        print(f"Visiting source {s}")
         s.color = "gray"
         s.d = 0
         print(f"d: {s.d}")
@@ -45,7 +55,7 @@ class Graph:
 
             for v in u.adj:
                 if v.color == "white":
-                    print(f"\nVisiting vertex {str(v)}...")
+                    print(f"\nVisiting vertex {v}...")
 
                     v.color = "gray"
                     v.d = u.d + 1
@@ -71,7 +81,7 @@ class Graph:
     def dfs_visit(self, u):
         self.time += 1
 
-        print(f"Visiting {str(u)} at t={self.time}...")
+        print(f"Visiting {u} at t={self.time}...")
         print(f"predecessor: {u.predecessor}\n")
 
         u.d = self.time
@@ -85,13 +95,14 @@ class Graph:
         u.color = "black"
         self.time += 1
         u.f = self.time
-        print(f"Finished {str(u)} at t={self.time}\n")
+        print(f"Finished {u} at t={self.time}\n")
 
 
 class Vertex:
     def __init__(self, nid):
         self.nid = nid
         self.adj = []
+        self.weights = []
 
     def __str__(self):
         return str(self.nid)
