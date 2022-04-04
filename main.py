@@ -16,3 +16,8 @@ g.bfs(s=0)
 
 print("\n----- DFS on g -----")
 g.dfs()
+
+g.to_matrix()
+
+print("\n----- Matrix of g -----")
+g.print_matrix()

@@ -16,6 +16,28 @@ class Graph:
             if not self.directed:
                 self.vertices[v].weights.append(w)
 
+    def to_matrix(self):
+        self.w = [[float("inf") for i in range(len(self.vertices))] for j in range(len(self.vertices))]
+
+        for u in self.vertices:
+            if self.weighted:
+                self.w[u.nid][u.nid] = 0
+
+            for i, v in enumerate(u.adj):
+                if self.weighted:
+                    self.w[u.nid][v.nid] = u.weights[i]
+                else:
+                    self.w[u.nid][v.nid] = 1
+
+    def print_matrix(self):
+        for i in self.w:
+            s = ""
+
+            for j in i:
+                s += f"{j:03} "
+
+            print(s)
+
     def __str__(self):
         s = ""
 
