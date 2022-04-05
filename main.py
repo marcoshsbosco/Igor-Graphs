@@ -1,12 +1,15 @@
 from Graph import *
 
-g = Graph(vertices=7, directed=True, weighted=True)
-g.add_edge(0, 1, 1)
-g.add_edge(0, 2, 2)
-g.add_edge(1, 3, 4)
-g.add_edge(1, 4, 6)
-g.add_edge(2, 5, 8)
-g.add_edge(2, 6, 10)
+g = Graph(vertices=5, directed=True, weighted=True)
+g.add_edge(0, 1, 3)
+g.add_edge(0, 2, 8)
+g.add_edge(0, 4, -4)
+g.add_edge(1, 3, 1)
+g.add_edge(1, 4, 7)
+g.add_edge(2, 1, 4)
+g.add_edge(3, 0, 2)
+g.add_edge(3, 2, -5)
+g.add_edge(4, 3, 6)
 
 print("----- Graph g -----")
 print(g)
