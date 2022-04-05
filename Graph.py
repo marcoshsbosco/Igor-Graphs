@@ -119,6 +119,24 @@ class Graph:
         u.f = self.time
         print(f"Finished {u} at t={self.time}\n")
 
+    def floyd_warshall(self):
+        d = self.w.copy()
+        p = [[None for i in range(len(self.w))] for j in range(len(self.w))]
+
+        for i in range(len(self.w)):
+            for j in range(len(self.w)):
+                if i != j and self.w[i][j] < float("inf"):
+                    p[i][j] = i
+
+        for k in range(len(self.w)):
+            for i in range(len(self.w)):
+                for j in range(len(self.w)):
+                    if d[i][j] > d[i][k] + d[k][j]:
+                        d[i][j] = d[i][k] + d[k][j]
+                        p[i][j] = p[k][j]
+
+        return d, p
+
 
 class Vertex:
     def __init__(self, nid):

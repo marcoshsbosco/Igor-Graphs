@@ -21,3 +21,27 @@ g.to_matrix()
 
 print("\n----- Matrix of g -----")
 g.print_matrix()
+
+print("\n----- Floyd-Warshall on g -----")
+d, p = g.floyd_warshall()
+
+print("----- d -----")
+for i in d:
+    s = ""
+
+    for j in i:
+        s += f"{j:03} "
+
+    print(s)
+
+print("\n----- p -----")
+for i in p:
+    s = ""
+
+    for j in i:
+        try:
+            s += f"{j:03} "
+        except TypeError:
+            s += "NIL "
+
+    print(s)
