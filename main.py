@@ -1,3 +1,7 @@
+"""
+Written for and tested with Python 3.10.4 by Bosco
+"""
+
 from Graph import *
 
 # test 1 ------------------------------------------

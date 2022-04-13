@@ -1,6 +1,6 @@
 class Graph:
     def __init__(self, vertices: int, directed: bool, weighted: bool):
-        self.vertices = [Vertex(u) for u in range(vertices)]
+        self.vertices = [Vertex(u) for u in range(vertices)]  # adjacency list
         self.directed = directed
         self.weighted = weighted
 
@@ -73,7 +73,7 @@ class Graph:
         queue.append(s)
 
         while queue:
-            u = queue.pop(0)
+            u = queue.pop(0)  # FIFO
 
             for v in u.adj:
                 if v.color == "white":
@@ -120,8 +120,8 @@ class Graph:
         print(f"Finished {u} at t={self.time}\n")
 
     def floyd_warshall(self):
-        d = self.w.copy()
-        p = [[None for i in range(len(self.w))] for j in range(len(self.w))]
+        d = self.w.copy()  # shortest-path weights
+        p = [[None for i in range(len(self.w))] for j in range(len(self.w))]  # predecessor
 
         for i in range(len(self.w)):
             for j in range(len(self.w)):
@@ -142,7 +142,7 @@ class Vertex:
     def __init__(self, nid):
         self.nid = nid
         self.adj = []
-        self.weights = []
+        self.weights = []  # parallel to adjacency list
 
     def __str__(self):
         return str(self.nid)
