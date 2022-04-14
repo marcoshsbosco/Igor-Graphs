@@ -54,71 +54,6 @@ class Graph:
 
         return s
 
-    def bfs(self, s):
-        if isinstance(s, int):
-            s = self.vertices[s]
-
-        for u in self.vertices:
-            u.color = "white"
-            u.d = float("inf")
-            u.predecessor = None
-
-        print(f"Visiting source {s}")
-        s.color = "gray"
-        s.d = 0
-        print(f"d: {s.d}")
-        print(f"predecessor: {s.predecessor}")
-
-        queue = []
-        queue.append(s)
-
-        while queue:
-            u = queue.pop(0)  # FIFO
-
-            for v in u.adj:
-                if v.color == "white":
-                    print(f"\nVisiting vertex {v}...")
-
-                    v.color = "gray"
-                    v.d = u.d + 1
-                    v.predecessor = u
-                    queue.append(v)
-
-                    print(f"d: {v.d}")
-                    print(f"predecessor: {v.predecessor}")
-
-            u.color = "black"
-
-    def dfs(self):
-        for u in self.vertices:
-            u.color = "white"
-            u.predecessor = None
-
-        self.time = 0
-
-        for u in self.vertices:
-            if u.color == "white":
-                self.dfs_visit(u)
-
-    def dfs_visit(self, u):
-        self.time += 1
-
-        print(f"Visiting {u} at t={self.time}...")
-        print(f"predecessor: {u.predecessor}\n")
-
-        u.d = self.time
-        u.color = "gray"
-
-        for v in u.adj:
-            if v.color == "white":
-                v.predecessor = u
-                self.dfs_visit(v)
-
-        u.color = "black"
-        self.time += 1
-        u.f = self.time
-        print(f"Finished {u} at t={self.time}\n")
-
     def floyd_warshall(self):
         d = self.w.copy()  # shortest-path weights
         p = [[None for i in range(len(self.w))] for j in range(len(self.w))]  # predecessor
@@ -136,6 +71,35 @@ class Graph:
                         p[i][j] = p[k][j]
 
         return d, p
+
+    def prim(self, r):
+        global v_alpha
+
+        if isinstance(r, int):
+            r = self.vertices[r]
+
+        for u in self.vertices:
+            u.key = float("inf")
+            u.predecessor = None
+
+        r.key = 0
+
+        queue = self.vertices.copy()
+
+        while queue:
+            u = queue.pop(queue.index(min(queue, key=lambda x:x.key)))
+
+            for i, v in enumerate(u.adj):
+                if v in queue and u.weights[i] < v.key:
+                    v.predecessor = u
+                    v.key = u.weights[i]
+
+        a = []
+        for u in self.vertices:
+            if u is not r:
+                a.append((u, u.predecessor))
+
+        return a
 
 
 class Vertex:

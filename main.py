@@ -5,25 +5,25 @@ Written for and tested with Python 3.10.4 by Bosco
 from Graph import *
 
 # test 1 ------------------------------------------
-g = Graph(vertices=5, directed=True, weighted=True)
-g.add_edge(0, 1, 3)
-g.add_edge(0, 2, 8)
-g.add_edge(0, 4, -4)
-g.add_edge(1, 3, 1)
-g.add_edge(1, 4, 7)
-g.add_edge(2, 1, 4)
-g.add_edge(3, 0, 2)
-g.add_edge(3, 2, -5)
-g.add_edge(4, 3, 6)
+g = Graph(vertices=9, directed=False, weighted=True)
+g.add_edge(0, 1, 4)
+g.add_edge(0, 7, 8)
+g.add_edge(1, 2, 8)
+g.add_edge(1, 7, 11)
+g.add_edge(2, 3, 7)
+g.add_edge(2, 5, 4)
+g.add_edge(2, 8, 2)
+g.add_edge(3, 4, 9)
+g.add_edge(3, 5, 14)
+g.add_edge(4, 5, 10)
+g.add_edge(5, 6, 2)
+g.add_edge(6, 7, 1)
+g.add_edge(6, 8, 6)
+g.add_edge(7, 8, 7)
 
-print("*-------------------- Graph g1 --------------------*")
+
+print("*-------------------- Graph g --------------------*")
 print(g)
-
-print("----- BFS on g -----")
-g.bfs(s=0)
-
-print("\n----- DFS on g -----")
-g.dfs()
 
 g.to_matrix()
 
@@ -54,54 +54,8 @@ for i in p:
 
     print(s)
 
+print("\n----- Prim on g -----")
+a = g.prim(r=0)
 
-# test 2 ------------------------------------------
-g = Graph(vertices=6, directed=True, weighted=True)
-g.add_edge(0, 4, -1)
-g.add_edge(1, 0, 1)
-g.add_edge(1, 3, 2)
-g.add_edge(2, 1, 2)
-g.add_edge(2, 5, -8)
-g.add_edge(3, 0, -4)
-g.add_edge(3, 4, 3)
-g.add_edge(4, 1, 7)
-g.add_edge(5, 1, 5)
-g.add_edge(5, 2, 10)
-
-print("\n\n*-------------------- Graph g2 --------------------*")
-print(g)
-
-print("----- BFS on g -----")
-g.bfs(s=0)
-
-print("\n----- DFS on g -----")
-g.dfs()
-
-g.to_matrix()
-
-print("\n----- Matrix of g -----")
-g.print_matrix()
-
-print("\n----- Floyd-Warshall on g -----")
-d, p = g.floyd_warshall()
-
-print("----- d -----")
-for i in d:
-    s = ""
-
-    for j in i:
-        s += f"{j:03} "
-
-    print(s)
-
-print("\n----- p -----")
-for i in p:
-    s = ""
-
-    for j in i:
-        try:
-            s += f"{j:03} "
-        except TypeError:
-            s += "NIL "
-
-    print(s)
+for x in a:
+    print(f"{x[1]} - {x[0]} (w={x[0].key})")
